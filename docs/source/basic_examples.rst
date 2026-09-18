@@ -87,7 +87,7 @@ which atoms are modified during construction of a
 :class:`.ConstructedMolecule`. This is achieved by providing the
 :class:`.BuildingBlock` with
 :mod:`~.functional_groups.functional_group` instances. To save you
-the pain of creating function groups one by one, you can use a
+the pain of creating functional groups one by one, you can use a
 :mod:`~.functional_group_factory`. If you have a building block
 with bromo groups, and you want the bromo groups to be modified
 during construction, you would use a :class:`.BromoFactory`
@@ -838,7 +838,7 @@ moment you call :meth:`~.MoleculeDatabase.put`, the molecule is
 committed to the database.
 
 To retrieve a molecule from the database, by default, you would
-provide the InChIKey. To first thing you might want to do is write a
+provide the InChIKey. The first thing you might want to do is write a
 function which turns the SMILES of a molecule into the InChIKey
 
 .. testcode:: placing-and-retrieving-molecules-from-a-database
@@ -1140,7 +1140,7 @@ Requirements
 :mod:`chemiscope` makes it easy for you to write a ``.json`` or ``.json.gz``
 containing :mod:`stk` molecules and their properties; see an example__.
 
-__ https://chemiscope.org/docs/examples/9-showing_custom_bonds.html
+__ https://chemiscope.org/docs/examples/9-stk-custom-bonds.html
 
 To get :mod:`.chemiscope`, you can install it with pip::
 
@@ -1187,39 +1187,24 @@ Either way, you need to write a ``.json`` or ``.json.gz`` file
     # Write their properties to a dictionary.
     properties = {
         "num_atoms": [molecule.get_num_atoms() for molecule in structures],
-        "num_bonds": [
-            len(list(molecule.get_bonds())) for molecule in structures
-        ],
+        "num_bonds": [molecule.get_num_bonds() for molecule in structures],
     }
-
-    # Define stk bonding.
-    shape_dict = chemiscope.convert_stk_bonds_as_shapes(
-        frames=structures,
-        bond_color="#fc5500",
-        bond_radius=0.12,
-    )
-
-    # Write the shape string for settings to turn them on automatically.
-    shape_string = ",".join(shape_dict.keys())
 
     # Write to file.
     chemiscope.write_input(
         path="stk_example.json.gz",
-        frames=structures,
+        structures=structures,
         properties=properties,
-        meta=dict(name="A name."),
+        metadata=dict(name="A name."),
         settings=chemiscope.quick_settings(
             x="num_atoms",
             y="num_bonds",
-            color="",
             structure_settings={
-                "shape": shape_string,
                 "atoms": True,
                 "bonds": False,
                 "spaceFilling": False,
             },
         ),
-        shapes=shape_dict,
     )
 
 .. testcleanup:: saving-to-chemiscope
