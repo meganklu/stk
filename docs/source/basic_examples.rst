@@ -1451,7 +1451,7 @@ which have a bond order of 9, as dative.
 Making Keys for Molecules with Dative Bonds
 ===========================================
 
-Dative bonds are not defined in an InChI or InChiIKey.
+Dative bonds are not defined in an InChI or InChIKey.
 Therefore, when storing metal-containing molecules in a
 database, a different key is required. Because dative bonds are
 implemented in SMILES, the SMILES string makes a
