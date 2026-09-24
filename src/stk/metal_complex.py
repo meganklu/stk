@@ -23,7 +23,6 @@ from stk._internal.topology_graphs.metal_complex.vertices import (
     BiDentateLigandVertex,
     MonoDentateLigandVertex,
     MetalVertex,
-    UnaligningVertex,
 )
 
 __all__ = [
